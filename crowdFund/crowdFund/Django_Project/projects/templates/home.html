@@ -1,0 +1,62 @@
+{% extends "base1.html" %}
+{% block content %}
+<div class="container">
+<div class="index_container">
+    <h1 class="text-center">highest five rated running projects</h1>
+    <br>
+    <div id="slider">
+        <figure>
+            {% if top5 %}
+                {% for i in top5 %}
+                    <div class="main">
+                        <div class="top" style="background-image:url('{{ i.images.0.image.url }}')">
+                            <h1 style="color:white">{{ i.project.title }}</h1>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </figure>
+    </div>
+</div>
+
+{% if admin_choice%}
+    <h1 class="text-center">Admin Choice projects </h1>
+<br>
+
+<div class="row">
+    {% for i in admin_choice %}
+    <div class="container col-4">
+        <div class="card" style="width: 18rem;">
+           <img src="{{ i.images.0.image.url }}" >
+          <div class="card-body">
+            <h5 class="card-title">Project title : {{ i.project.title }}</h5>
+            <h4 class="card-text">Project Target : {{ i.project.total_target }} </h4>
+              <h3>Project Category : {{ i.project.category }}</h3>
+           <a class="btn btn-primary"href=" {% url 'detail' i.project.id %} ">Show Project</a>
+          </div>
+        </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endif %}
+{% if latest_projects%}
+    <h1 class="text-center">Newest projects</h1>
+<div class="row">
+    {% for i in latest_projects %}
+     <div class="container col-4">
+             <div class="card" style="width: 18rem;">
+           <img src="{{ i.images.0.image.url }}" >
+          <div class="card-body">
+            <h5 class="card-title">Project title : {{ i.project.title }}</h5>
+            <h4 class="card-text">Project Target : {{ i.project.total_target }} </h4>
+              <h3>Project Category : {{ i.project.category }}</h3>
+           <a class="btn btn-primary"href=" {% url 'detail' i.project.id %} ">Show Project</a>
+          </div>
+        </div>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+    </div>
+{% endblock %}
